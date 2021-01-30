@@ -1,0 +1,7 @@
+*.pdf
+*.png
+*.osm.pbf
+render.svg
+render.png
+
+!render/*

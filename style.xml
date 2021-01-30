@@ -1,0 +1,142 @@
+<Map background-color="#FFFAE9">
+
+    <Style name="roads">
+      <Rule>
+        <Filter>[highway] = secondary or [highway] = primary</Filter>
+        <LineSymbolizer stroke="#004681" stroke-width="13" />
+      </Rule>
+      <Rule>
+        <Filter>[highway] = path or [highway] = footway or [highway] = unclassified</Filter>
+        <LineSymbolizer 
+          stroke="#004681" 
+          stroke-width="2" 
+          stroke-linecap="round"
+          stroke-linejoin="round" />
+      </Rule>
+      <Rule>
+        <ElseFilter />
+        <LineSymbolizer 
+          stroke="#004681" 
+          stroke-width="5" 
+          stroke-linecap="round"
+          stroke-linejoin="round" />
+      </Rule>
+    </Style>
+
+    <Style name="rails">
+      <Rule>
+        <Filter>[railway] = tram</Filter>
+        <LineSymbolizer 
+          stroke="#012647" 
+          stroke-width="5" 
+          stroke-linecap="round"
+          stroke-linejoin="round" />
+      </Rule>
+      <Rule>
+        <ElseFilter />
+        <LineSymbolizer 
+          stroke="#d1cdc2" 
+          stroke-width="3" 
+          stroke-linecap="round"
+          stroke-linejoin="round" />
+      </Rule>
+    </Style>
+
+    <Style name="water">
+      <Rule>
+        <PolygonSymbolizer fill="#004681" />
+      </Rule>
+    </Style>
+
+    <Style name="residential-area">
+      <Rule>
+        <PolygonSymbolizer fill="#FFF4D0" />
+      </Rule>
+    </Style>
+
+    <Style name="buildings">
+      <Rule>
+        <PolygonSymbolizer fill="#D5C797" />
+      </Rule>
+    </Style>
+
+    <Style name="parks">
+      <Rule>
+        <PolygonSymbolizer fill="#D5C797" />
+      </Rule>
+    </Style>
+
+    <Style name="forests">
+      <Rule>
+        <PolygonSymbolizer fill="#fcf5de" />
+      </Rule>
+    </Style>
+
+    <Datasource name="db">
+      <Parameter name="type">postgis</Parameter>
+      <Parameter name="host">db</Parameter>
+      <Parameter name="dbname">main</Parameter>
+      <Parameter name="user">postgres</Parameter>      
+      <Parameter name="password">postgres</Parameter>
+      <Parameter name="estimate_extent">false</Parameter>
+      <Parameter name="extent">112666.28902007516 6341450.3044231,130252.93305893593 6358678.300849958</Parameter>
+    </Datasource>
+  
+    <Layer name="water">
+        <StyleName>water</StyleName>
+        <Datasource base="db">
+            <Parameter name="table">
+              (SELECT * FROM planet_osm_polygon as poly WHERE poly.natural = 'water') as world
+            </Parameter>
+        </Datasource>
+    </Layer>
+  
+    <Layer name="residential-area">
+        <StyleName>residential-area</StyleName>
+        <Datasource base="db">
+            <Parameter name="table">(SELECT * FROM planet_osm_polygon as p WHERE p.landuse = 'residential') as world</Parameter>
+        </Datasource>
+    </Layer>
+  
+    <Layer name="parks">
+        <StyleName>parks</StyleName>
+        <Datasource base="db">
+            <Parameter name="table">
+              (SELECT * FROM planet_osm_polygon as t WHERE t.leisure IS NOT NULL) as world
+            </Parameter>
+        </Datasource>
+    </Layer>
+  
+    <Layer name="forests">
+        <StyleName>forests</StyleName>
+        <Datasource base="db">
+            <Parameter name="table">
+              (SELECT * FROM planet_osm_polygon as t WHERE t.landuse = 'forest') as world
+            </Parameter>
+        </Datasource>
+    </Layer>
+
+    <Layer name="roads">
+        <StyleName>roads</StyleName>
+        <Datasource base="db">
+            <Parameter name="table">(SELECT * FROM planet_osm_line as l WHERE l.highway IS NOT NULL) as world</Parameter>
+        </Datasource>
+    </Layer>
+
+    <Layer name="rails">
+        <StyleName>rails</StyleName>
+        <Datasource base="db">
+            <Parameter name="table">(SELECT * FROM planet_osm_line as t WHERE t.railway IS NOT NULL) as world</Parameter>
+        </Datasource>
+    </Layer>
+  
+    <Layer name="buildings">
+        <StyleName>buildings</StyleName>
+        <Datasource base="db">
+            <Parameter name="table">
+              (SELECT * FROM planet_osm_polygon as poly WHERE poly.building IS NOT NULL) as world
+            </Parameter>
+        </Datasource>
+    </Layer>
+    
+  </Map>

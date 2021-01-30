@@ -1,0 +1,27 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  db:
+    image: postgis/postgis
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: main
+  import:
+    image: disrvptor/osm2pgsql 
+    command: -c 'sleep 30 && osm2pgsql --drop --slim /source/import.osm.pbf'
+    depends_on:
+      - db
+    volumes:
+       - ./rouen.osm.pbf:/source/import.osm.pbf
+    environment:
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: main
+      PGHOST: db
+  mapnik:
+    image: kherrala/mapnik-python
+    volumes:
+       - .:/src
+    depends_on:
+      - db
