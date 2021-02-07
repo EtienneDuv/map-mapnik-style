@@ -13,7 +13,7 @@ services:
     depends_on:
       - db
     volumes:
-       - ./rouen.osm.pbf:/source/import.osm.pbf
+       - ./prague.osm.pbf:/source/import.osm.pbf
     environment:
       PGUSER: postgres
       PGPASSWORD: postgres

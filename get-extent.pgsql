@@ -1,1 +1,1 @@
-SELECT ST_Expand(st_extent(p.way), 2000, 4500) FROM planet_osm_polygon as p WHERE p.name = 'Rouen' and p.boundary IS NOT NULL LIMIT 100
+SELECT ST_Expand(st_extent(p.way), 2000, 4500) FROM planet_osm_polygon as p WHERE p.name = 'Prague' and p.boundary IS NOT NULL LIMIT 100
