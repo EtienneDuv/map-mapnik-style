@@ -1,7 +1,12 @@
 <!-- 
-blue:   #092d4c
-green:  #b2daa4 #7aa86a #7dd95d
-grey:   #757874
+{
+BLUE:"182937",
+GREY:"9E9B96",
+WHITE:"e7e5df",
+GREEN 1: 9DC7A3
+GREEN 2:"6CAC76"
+GREEN 3:"3C6842"
+}
  -->
 
 <Map background-color="#FFFAE9">
@@ -9,12 +14,12 @@ grey:   #757874
     <Style name="roads">
       <Rule>
         <Filter>[highway] = secondary or [highway] = primary</Filter>
-        <LineSymbolizer stroke="#807962" stroke-width="8" />
+        <LineSymbolizer stroke="#9E9B96" stroke-width="8" />
       </Rule>
       <Rule>
         <Filter>[highway] = path or [highway] = footway or [highway] = unclassified</Filter>
         <LineSymbolizer 
-          stroke="#807962" 
+          stroke="#9E9B96" 
           stroke-width="1" 
           stroke-linecap="round"
           stroke-linejoin="round" />
@@ -22,7 +27,7 @@ grey:   #757874
       <Rule>
         <ElseFilter />
         <LineSymbolizer 
-          stroke="#807962" 
+          stroke="#9E9B96" 
           stroke-width="3" 
           stroke-linecap="round"
           stroke-linejoin="round" />
@@ -40,32 +45,15 @@ grey:   #757874
       </Rule>
     </Style>
 
-    <Style name="text">
-      <Rule>
-        <LineSymbolizer 
-        stroke="#000000" 
-        stroke-linecap="round" 
-        stroke-linejoin="round" 
-        stroke-width="10" 
-        />
-                <TextSymbolizer 
-          fill= "#000000"
-          face-name="DejaVu Sans Book" 
-          size="35" > 
-          [name]
-          </TextSymbolizer>
-      </Rule>
-    </Style>
-
     <Style name="water">
       <Rule>
-        <PolygonSymbolizer fill="#092d4c" />
+        <PolygonSymbolizer fill="#182937" />
       </Rule>
     </Style>
 
     <Style name="residential-area">
       <Rule>
-        <PolygonSymbolizer fill="#FFF4D0" />
+        <PolygonSymbolizer fill="#e7e5df" />
       </Rule>
     </Style>
 
@@ -77,13 +65,14 @@ grey:   #757874
 
     <Style name="parks">
       <Rule>
-        <PolygonSymbolizer fill="#8eb581" />
+        <PolygonSymbolizer fill="#9DC7A3" />
+        <LineSymbolizer stroke="#3C6842" stroke-width="1.5" />
       </Rule>
     </Style>
 
     <Style name="forests">
       <Rule>
-        <PolygonSymbolizer fill="#5a7551" />
+        <PolygonSymbolizer fill="#6CAC76" />
       </Rule>
     </Style>
 
@@ -94,7 +83,10 @@ grey:   #757874
       <Parameter name="user">postgres</Parameter>      
       <Parameter name="password">postgres</Parameter>
       <Parameter name="estimate_extent">false</Parameter>
-      <Parameter name="extent">1593204.5633652804 6451992.822211166,1619141.9267964694 6468472.731554675</Parameter>
+      <!-- Prague -->
+      <!-- <Parameter name="extent">1593634.8799888908 6450665.7688209,1621019.3856684437 6477835.932623713</Parameter> -->
+      <!-- Lyon -->
+      <Parameter name="extent">523424.2902377686 5729694.634615593,551476.6572023355 5750911.944649049</Parameter>
     </Datasource>
   
     <Layer name="water">
@@ -154,13 +146,4 @@ grey:   #757874
         </Datasource>
     </Layer>
   
-    <Layer name="text">
-        <StyleName>text</StyleName>
-        <Datasource base="db">
-            <Parameter name="table">
-              (SELECT * FROM planet_osm_point as p WHERE p.place = 'suburb') as world
-            </Parameter>
-        </Datasource>
-    </Layer>
-    
   </Map>
